@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <cstring>
+#include <cctype>
 
 #include "system/resources.hpp"
 #include "audio/ogg_audio.hpp"
@@ -21,10 +22,8 @@ Resources resources;
 std::vector<std::string> musicFiles;
 int selectedMusic = 0;
 int listOffset = 0;
-int loadFrames = 0;
 std::string message;
 C2D_TextBuf textBuffer;
-C2D_Text textLine[10];
 
 bool isDirectory(const std::string& path) {
     struct stat st;
@@ -62,7 +61,7 @@ std::string parentDirectory(const std::string& path) {
     const std::string::size_type pos = path.find_last_of('/');
     return pos == std::string::npos ? "." : path.substr(0, pos);
 }
-void drawText(GFX_BOTTOM orTop, const char* text, float x, float y, float scale = 0.55f) {
+void drawText(const char* text, float x, float y, float scale = 0.55f) {
     C2D_Text parsed;
     C2D_TextParse(&parsed, textBuffer, text);
     C2D_TextOptimize(&parsed);
@@ -81,7 +80,7 @@ void drawTitleTop() {
 void drawBottomPrompt(const char* prompt) {
     C2D_TargetClear(resources.bottomTarget, C2D_Color32(0, 0, 0, 255));
     C2D_SceneBegin(resources.bottomTarget);
-    drawText(GFX_BOTTOM, prompt, 35.0f, 125.0f);
+    drawText(prompt, 35.0f, 125.0f);
 }
 void render() {
     C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
@@ -153,7 +152,6 @@ bool selectSong(const std::string& path) {
 
 int main(int, char**) {
     gfxInitDefault();
-    consoleInit(GFX_BOTTOM, nullptr);
     ndspInit();
     C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
     C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
