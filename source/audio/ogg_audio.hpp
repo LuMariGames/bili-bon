@@ -1,6 +1,6 @@
 #pragma once
 #include <3ds.h>
-#include <ndsp/ndsp.h>
+#include <3ds/ndsp/ndsp.h>
 #include <cstdint>
 #include <string>
 #include <vector>
