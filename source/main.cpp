@@ -99,17 +99,17 @@ void render() {
         C2D_TargetClear(resources.bottomTarget, C2D_Color32(0, 0, 0, 255));
         C2D_SceneBegin(resources.bottomTarget);
         if (musicFiles.empty()) {
-            drawText(GFX_BOTTOM, "音楽ファイルを入れて下さい", 12.0f, 120.0f, 0.5f);
+            drawText("音楽ファイルを入れて下さい", 12.0f, 120.0f, 0.5f);
         } else {
             const int visible = 8;
             for (int i = 0; i < visible && listOffset + i < (int)musicFiles.size(); ++i) {
                 const int index = listOffset + i;
                 std::string label = (index == selectedMusic ? "> " : "  ") + fileName(musicFiles[index]);
                 if (label.size() > 42) label = label.substr(0, 39) + "...";
-                drawText(GFX_BOTTOM, label.c_str(), 8.0f, 28.0f + i * 25.0f, 0.45f);
+                drawText(label.c_str(), 8.0f, 28.0f + i * 25.0f, 0.45f);
             }
             if (!message.empty())
-                drawText(GFX_BOTTOM, message.c_str(), 8.0f, 225.0f, 0.38f);
+                drawText(message.c_str(), 8.0f, 225.0f, 0.38f);
         }
         break;
     }
